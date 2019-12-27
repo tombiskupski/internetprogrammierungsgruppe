@@ -1,4 +1,4 @@
 # internetprogrammierungsgruppe
 ## TODO: 
 
-- [ ]  swag
+- [x]  swag

@@ -1,4 +1,7 @@
 # internetprogrammierungsgruppe
 ## TODO: 
 
-- [x]  swag
+- [ ]  HTML/CSS
+- [ ]  Datenbank einbinden
+- [ ]  Responsive Layout mit Bootstrap
+- [ ]  Bilder upload 

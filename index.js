@@ -13,7 +13,7 @@ app.get('/', function(req, res){
   res.render('pages/index');
 });
 
-app.get('/', (req, res, next) => {
+app.post('/index', (req, res, next) => {
   let sql = `SELECT * FROM User WHERE username = "${req.body.username}" AND password = "${req.body.password}"`;
   var x;
  
@@ -28,7 +28,7 @@ app.get('/', (req, res, next) => {
      return
    }
    rows.forEach((row) => {
-     if (row.username === req.body.username && row.password === req.body.password) {
+     if (row.username == req.body.username && row.password == req.body.password) {
          x = 1;
      }
      else {
@@ -36,10 +36,12 @@ app.get('/', (req, res, next) => {
          db.close();
      }
    })
-   if (x === 1) {
-     res.redirect('/index2');
+   if (x == 1) {
+     res.redirect('/');
+     console.log('eingeloggt');
    }
-   else { res.redirect('/index3'); }
+   else { res.redirect('/'); }
+   console.log('fehlgeschlagen');
   })
 });
   

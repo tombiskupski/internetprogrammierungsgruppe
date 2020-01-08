@@ -13,7 +13,7 @@ app.get('/', function(req, res){
   res.render('pages/index');
 });
 
-app.post('/Login', (req, res, next) => {
+app.get('/', (req, res, next) => {
   let sql = `SELECT * FROM User WHERE username = "${req.body.username}" AND password = "${req.body.password}"`;
   var x;
  
@@ -29,14 +29,20 @@ app.post('/Login', (req, res, next) => {
    }
    rows.forEach((row) => {
      if (row.username === req.body.username && row.password === req.body.password) {
-         console.log('1');
+         x = 1;
      }
      else {
-         console.log('2');
+         x = 2;
+         db.close();
      }
    })
+   if (x === 1) {
+     res.redirect('/index2');
+   }
+   else { res.redirect('/index3'); }
   })
-})
+});
+  
 
 app.listen(port, function() {
     console.log(`Server listening on port ${port}…`)

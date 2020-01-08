@@ -9,18 +9,6 @@ app.set('view engine', 'ejs');
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
-app.get('/', function(req, res) {
-    
-  var pageTitle = "Versuch Nummero 1"
-db.all('SELECT * FROM test', (err, rows) => {
-  console.log("get / index funktion")
-  res.render('pages/index', {
-    title: pageTitle,
-    data: rows
-  });
-});
-});
-
 app.listen(port, function() {
     console.log(`Server listening on port ${port}…`)
    });

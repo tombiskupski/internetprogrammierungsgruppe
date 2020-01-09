@@ -11,7 +11,6 @@ app.set('view engine', 'ejs');
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.get('/', function (req, res) {
-  console.log('GET1 /');
   
   db.all('SELECT * FROM user', (err, rows) => {
 	  
@@ -49,9 +48,12 @@ app.post('/index', function (req, res) {
     }
   })
   if (x === 1) {
-    res.redirect('/index312313');
+    res.redirect('/');
+    console.log('login');
   }
-  else { res.redirect('/index424234'); }
+  else { res.redirect('/');
+  console.log('guest');
+}
  })
  });
   

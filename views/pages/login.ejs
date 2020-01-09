@@ -15,16 +15,6 @@
     <div class="row text-center headerColor" style="border : 1px solid #cecece ;">  <!--Banner on top of the site-->
       <div class= "container textColor">
         <p style="font-size:28px "><h1 method="get" class="headerMessage">Instagram Clone</h1></p>
-      </div>
-      <div id="loginFormula">
-        <form id="loginfeld"  method="post" action="/index">
-          <input name="loginname" id="textarea" type="text"  class="fadeIn second" placeholder="login">
-          <input name="password"  class="fadeIn third" placeholder="password">
-          <input type="submit" class="fadeIn fourth" value="Log In"> 
-        </form>
-      </div>
-    </div>
-  
     <div class="container"> <!--placeholder class between Elements-->
       <div class="row bodycolor">
         placeholder
@@ -48,23 +38,9 @@
         <div id='form'>
           <div class="row">
             <div class="col">
-              <form action="/index" method="get" id="commentform">
+              <form action="" method="POST" id="commentform">
                 <div id="comment-name" class="form-row">
-                  <input name="comment" type = "text" placeholder = "Enter your Comment">
-				  <button id="form-submit"  type="submit" class="btn btn-primary">Submit</button>
-				  <table class="striped">
-            <tbody>
-			<% data.forEach(element => {%>
-                <tr>
-                 
-                  <td class="list-group-item list-group-item-success"><%=element.aktuellernutzer%>:</td>
-                  <td class="list-group-item list-group-item-success"><%=element.kommentar%></td>
-                </tr>
-                <% }) %>
-                </tr>
-                
-          </table>
-		  
+                  <input type = "text" placeholder = "Enter your Comment">
                 </div>
             </div>
            </div>
@@ -101,7 +77,7 @@
         <div class="row">
           <div class="col">
             <form action="" method="POST" id="commentform">
-              <div id="comment-name" class="form-row">
+              <div id="" class="form-row">
                 <input type = "text" placeholder = "Enter your Comment">
               </div>
           </div>
@@ -135,7 +111,7 @@
       <div class="row">
         <div class="col">
           <form action="" method="POST" id="commentform">
-            <div id="comment-name" class="form-row">
+            <div id="" class="form-row">
               <input type = "text" placeholder = "Enter your Comment">
             </div>
         </div>

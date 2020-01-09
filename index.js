@@ -11,7 +11,6 @@ app.set('view engine', 'ejs');
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.get('/', function (req, res) {
-  console.log('GET1 /');
   
   
 	  db.all('SELECT * FROM comment', (err, rows) => {
@@ -61,15 +60,23 @@ app.post('/index', function (req, res) {
         x = 1;
     }
     else {
-        x = 2;
-        
+        x = 2;   
     }
   })
   if (x === 1) {
+<<<<<<< HEAD
 	  return textarea;
     res.redirect('/index');
   }
   else { res.redirect('/index'); }
+=======
+    res.render('pages/login');
+    console.log('login');
+  }
+  else { res.redirect('/');
+  console.log('guest');
+}
+>>>>>>> 1239de348ee8b8f1749d7bf87bfbd1a91d86e84d
  })
  });
   

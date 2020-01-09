@@ -28,20 +28,33 @@
       <div class="col text-center  "> 
         <img src="https://www.improgrammer.net/wp-content/uploads/2017/06/kBbPmyS9L7ghV0_Mwoeq5PhVErMmqxXONr0SS9u_Xik.jpg" class="img" alt="swag" width="350" height="350">
       </div>
-      <ul class="list-group">
+      <ul class="list-group" method="get">
         <li class="list-group-item list-group-item-success">first comment</li>
         <li class="list-group-item list-group-item-info">second comment</li>
         <li class="list-group-item list-group-item-warning">third comment</li>
         <li class="list-group-item list-group-item-danger">fourth comment</li>
+		<li class="list-group-item list-group-item-danger">fourth comment</li>
       </ul>
       <div class = "c text-center">   <!--Comment input class-->
         <div id='form'>
           <div class="row">
             <div class="col">
-              <form action="" method="POST" id="commentform">
-                <div id="comment-name" class="form-row">
-                    <input name="comment" type = "text" placeholder = "Enter your Comment">
-            <button id="form-submit"  type="submit" class="btn btn-primary">Submit</button>
+              <form action="/login" method="post" id="commentform">
+                <div id="comment" class="form-row">
+                  <input type = "text" placeholder = "Enter your Comment">
+				  <button id="form-submit"  type="submit" class="btn btn-primary">Submit</button>
+				  <table class="striped">
+            <tbody>
+			<% data.forEach(element => {%>
+                <tr>
+                 
+                  <td class="list-group-item list-group-item-success"><%=element.aktuellernutzer%>:</td>
+                  <td class="list-group-item list-group-item-success"><%=element.kommentar%></td>
+                </tr>
+                <% }) %>
+                </tr>
+                
+          </table>
                 </div>
             </div>
            </div>

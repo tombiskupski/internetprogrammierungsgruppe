@@ -13,17 +13,34 @@ app.use('/public', express.static(process.cwd() + '/public'));
 app.get('/', function (req, res) {
   console.log('GET1 /');
   
-  db.all('SELECT * FROM user', (err, rows) => {
-	  
+  
+	  db.all('SELECT * FROM comment', (err, rows) => {
     res.render('pages/index', {
-		
-      data: rows,
-     
+      
+	  data: rows
     });
- 
+  
   })
 });
 
+
+app.get('/index', function (req, res) {
+  console.log('POST /add-entry');
+  console.log(req.body);
+  db.run('INSERT INTO comment(aktuellernutzer, kommentar) VALUES (?, ?);',
+    [req.body.loginname, req.body.comment],
+    (err) => {
+      if (err) {
+        console.log(err);
+        res.render('pages/index');
+      } else {
+        res.redirect('/');
+      }
+    })
+	
+});
+
+var x;
 app.post('/index', function (req, res) {
 	
  let sql = `SELECT * FROM user WHERE username1 = "${req.body.loginname}" AND password1 = "${req.body.password}"`;
@@ -49,9 +66,10 @@ app.post('/index', function (req, res) {
     }
   })
   if (x === 1) {
-    res.redirect('/index312313');
+	  return textarea;
+    res.redirect('/index');
   }
-  else { res.redirect('/index424234'); }
+  else { res.redirect('/index'); }
  })
  });
   

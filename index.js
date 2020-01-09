@@ -43,12 +43,11 @@ app.post('/index', function (req, res) {
         x = 1;
     }
     else {
-        x = 2;
-        
+        x = 2;   
     }
   })
   if (x === 1) {
-    res.redirect('/');
+    res.render('pages/login');
     console.log('login');
   }
   else { res.redirect('/');

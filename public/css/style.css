@@ -16,7 +16,7 @@
 body {background-color: #ffffff;}
   
 .bodycolor {
-    color: #f8f8ff;
+    color: #000000;
   }
   
 .vertical-center {
@@ -29,16 +29,8 @@ body {background-color: #ffffff;}
   color: #000000 ;
 }  
 
-.div {
-  color: #000000 ;
+#comments-name{
+  color: #000000;
 }
-.odd {
-  text-align: auto;
-  color: black;
-  overflow: auto;
-  max-width: 100px;	
-  height: 10px;
-  padding: 3px;
-  font-size: 15px; 
-  background: white;
-  }
+
+

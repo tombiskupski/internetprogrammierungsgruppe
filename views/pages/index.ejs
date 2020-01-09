@@ -15,12 +15,13 @@
     <div class="row text-center headerColor" style="border : 1px solid #cecece ;">  <!--Banner on top of the site-->
       <div class= "container textColor">
         <p style="font-size:28px "><h1 method="get" class="headerMessage">Instagram Clone</h1></p>
+        <h2><%= message %></h2>
       </div>
       <div id="loginFormula">
-        <form id="loginfeld"  method="post" action="/index">
-          <input name="loginname" id="textarea" type="text"  class="fadeIn second" placeholder="login">
+        <form id="loginfeld"  method="post" action="/">
+          <input name="loginname" type="text"  class="fadeIn second" placeholder="login">
           <input name="password"  class="fadeIn third" placeholder="password">
-          <input type="submit" class="fadeIn fourth" value="Log In"> 
+          <input type="submit" class="fadeIn fourth" value="Log In">
         </form>
       </div>
     </div>
@@ -31,40 +32,46 @@
       </div>
     </div>
 
-  
+    
     <div class="container ">  <!--container with all Elements of the Instagram Post-->
       <div class="row ">
     <div class = "col headerColor" style = "border: 1px solid #cecece;"> 
       <div class="col text-center  "> 
         <img src="https://www.improgrammer.net/wp-content/uploads/2017/06/kBbPmyS9L7ghV0_Mwoeq5PhVErMmqxXONr0SS9u_Xik.jpg" class="img" alt="swag" width="350" height="350">
       </div>
-      <ul class="list-group">
+
+
+        <hr>
+        <table>
+        <tbody>
+          <% data.forEach(element => {%>
+            <tr>
+              <td class="text-primary"><%=element.user%>:</td>
+              <td class="text-danger"><%=element.kommentar%></td>
+            </tr>
+            <% }) %>
+        </tbody>
+      </table>
+
+        <!--
         <li class="list-group-item list-group-item-success">first comment</li>
         <li class="list-group-item list-group-item-info">second comment</li>
         <li class="list-group-item list-group-item-warning">third comment</li>
         <li class="list-group-item list-group-item-danger">fourth comment</li>
-      </ul>
+      -->
+
+     
+
+
       <div class = "c text-center">   <!--Comment input class-->
         <div id='form'>
           <div class="row">
             <div class="col">
-              <form action="/index" method="post" id="commentform">
-                <div id="comment-name" class="form-row">
-                  <input name="comment" type = "text" placeholder = "Enter your Comment">
-				  <button id="form-submit"  type="submit" class="btn btn-primary">Submit</button>
-				  <table class="striped">
-            <tbody>
-			<% data.forEach(element => {%>
-                <tr>
-                 
-                  <td class="list-group-item list-group-item-success"><%=element.aktuellernutzer%>:</td>
-                  <td class="list-group-item list-group-item-success"><%=element.kommentar%></td>
-                </tr>
-                <% }) %>
-                </tr>
-                
-          </table>
-		  
+              <form action="/" method="post" id="commentform">
+                <div id="comments-name" class="form-row">
+                  <input id="kommentar1" name="kommentar" type = "text" placeholder = "Enter your Comment">
+                  <!--<input type="submit" value="Post it!">-->
+                <button id="form-submit"  type="submit" class="btn btn-primary">Post It!</button>
                 </div>
             </div>
            </div>

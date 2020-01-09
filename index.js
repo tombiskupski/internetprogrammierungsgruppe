@@ -4,6 +4,10 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 const app = express();
 const db = new sqlite3.Database('./datenbank/data.db');
+
+var activeUser = "you are not signed in";
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
@@ -13,63 +17,19 @@ app.use('/public', express.static(process.cwd() + '/public'));
 app.get('/', function (req, res) {
   console.log('GET1 /');
   
-  db.all('SELECT * FROM comment', (err, rows) => {
-	  
-    res.render('pages/index', {
-		
-      data: rows
-      
+  db.all('SELECT * FROM comments', (err, rows) => {
+    res.render('pages/', {
+      data: rows,
+      message: activeUser,
+      //data: rows,
+     
     });
-  
+    
   })
 });
 
-
-
-app.get('/login', function (req, res) {
-  db.all('SELECT * FROM comment', (err, rows) => {
-	  
-    res.render('pages/login', {
-		
-      data: rows
-      
-    });
-  
-  })
-});
-app.get('/add-entry', function (req, res) {
-  db.all('SELECT * FROM comment', (err, rows) => {
-	  
-    res.render('pages/add-entry', {
-		
-      data: rows
-      
-    });
-  
-  })
-});
-
-
-app.post('/login', function (req, res) {
-  console.log('POST /add-entry');
-  console.log(req.body);
-  db.run('INSERT INTO comment(aktuellernutzer) VALUES (?);',
-    [req.body.loginname],
-    (err) => {
-      if (err) {
-        console.log(err);
-        
-      } else {
-		  res.render('pages/login');
-        
-      }
-    })
-	
-});
-
-
-app.post('/index', function (req, res) {
-	
+app.post('/', function (req, res) {
+  if (!(req.body.loginname == null)){
  let sql = `SELECT * FROM user WHERE username1 = "${req.body.loginname}" AND password1 = "${req.body.password}"`;
  var x;
 
@@ -81,30 +41,88 @@ app.post('/index', function (req, res) {
   if (!rows) {
     res.status(400);
     res.send('Invalid username or password');
+    
     return
   }
   rows.forEach((row) => {
     if (row.username1 === req.body.loginname && row.password1 === req.body.password) {
         x = 1;
+        activeUser = row.username1;
     }
     else {
-        x = 2;   
+        x = 2;
+        
     }
   })
   if (x === 1) {
+    console.log("POST LOGIN")
 
-	  
-    res.redirect('/login');
+    db.all('SELECT * FROM comments', (err, rows) => {
+      res.render('pages/', {
+      
+        message: activeUser,
+        data: rows,
+      })
+
+      });
   }
-  else { res.redirect('/index'); 
-
-    res.render('pages/login');
-    console.log('login');
-  
+  else { 
+    db.all('SELECT * FROM comments', (err, rows) => {
+      res.render('pages/', {
+        data: rows,
+        message: "wrong passwort/username",
+        //data: rows,
+      })
+      
+      });
 }
+ })}
+ else {
 
- })
+  console.log('POST COMMENT');
+
+  db.run('INSERT INTO comments(user, kommentar) VALUES (?, ?);',
+    [activeUser, req.body.kommentar],
+    (err) => {
+      if (err) {
+        console.log(err);
+        
+      } else {
+        db.all('SELECT * FROM comments', (err, rows) => {
+      res.render('pages/', {
+        data: rows,
+        message: "wrong passwort/username",
+        //data: rows,
+      })
+      
+      });
+      console.log("Saved in Data")
+        
+      }
+    })
+
+ }
+
  });
+
+/*
+ app.post('/', function (req, res) {
+  console.log('POST COMMENT');
+
+  db.run('INSERT INTO comments(user, kommentar) VALUES (?, ?);',
+    [activeUser, req.body.comment],
+    (err) => {
+      if (err) {
+        console.log(err);
+        
+      } else {
+      res.render('pages/');
+      console.log("Saved in Data")
+        
+      }
+    })
+	
+});*/
   
 
 const server = app.listen(port, () => {

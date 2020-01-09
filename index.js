@@ -13,7 +13,7 @@ app.get('/', function(req, res){
   res.render('pages/');
 });
 
-app.post('/', (req, res, next) => {
+app.post('/index', function (req, res) {
   let sql = 'SELECT * FROM user WHERE username = "${req.body.username}" AND password = "${req.body.password}"';
   var x;
   console.log('db test');

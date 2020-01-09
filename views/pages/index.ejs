@@ -48,9 +48,24 @@
         <div id='form'>
           <div class="row">
             <div class="col">
-              <form action="/index" method="get" id="commentform">
+              <form action="/index" method="post" id="commentform">
+                <div id="comment-name" class="form-row">
+                  <input name="comment" type = "text" placeholder = "Enter your Comment">
+				  <button id="form-submit"  type="submit" class="btn btn-primary">Submit</button>
+				  <table class="striped">
+            <tbody>
+			<% data.forEach(element => {%>
+                <tr>
+                 
+                  <td class="list-group-item list-group-item-success"><%=element.aktuellernutzer%>:</td>
+                  <td class="list-group-item list-group-item-success"><%=element.kommentar%></td>
+                </tr>
+                <% }) %>
+                </tr>
+                
+          </table>
+		  
                 </div>
-                </form>
             </div>
            </div>
          </div>

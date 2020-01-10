@@ -5,7 +5,8 @@ const port = process.env.PORT || 3000;
 const app = express();
 const db = new sqlite3.Database('./datenbank/data.db');
 
-var activeUser = "you are not signed in";
+var activeUser = "not logged in";
+var warningMessage = "";
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,7 +22,7 @@ app.get('/', function (req, res) {
     res.render('pages/', {
       data: rows,
       message: activeUser,
-      //data: rows,
+      warningMessage: "",
      
     });
     
@@ -40,8 +41,7 @@ app.post('/', function (req, res) {
   }
   if (!rows) {
     res.status(400);
-    res.send('Invalid username or password');
-    
+    res.send("wrong passwort/username");
     return
   }
   rows.forEach((row) => {
@@ -62,16 +62,18 @@ app.post('/', function (req, res) {
       
         message: activeUser,
         data: rows,
+        warningMessage: "",
       })
 
       });
   }
   else { 
+    activeUser = "wrong passwort/username"
     db.all('SELECT * FROM comments', (err, rows) => {
       res.render('pages/', {
         data: rows,
-        message: "wrong passwort/username",
-        //data: rows,
+        message: activeUser,
+        warningMessage: "",
       })
       
       });
@@ -81,6 +83,19 @@ app.post('/', function (req, res) {
 
   console.log('POST COMMENT');
 
+  if(activeUser == "wrong passwort/username" || activeUser == 'not logged in'){
+  
+
+  console.log("Can't Post")
+  db.all('SELECT * FROM comments', (err, rows) => {
+    res.render('pages/', {
+      data: rows,
+      message: activeUser,
+      warningMessage: "Sie müssen sich einloggen um zu posten!",
+    })
+    });
+
+  }else{
   db.run('INSERT INTO comments(user, kommentar) VALUES (?, ?);',
     [activeUser, req.body.kommentar],
     (err) => {
@@ -91,15 +106,15 @@ app.post('/', function (req, res) {
         db.all('SELECT * FROM comments', (err, rows) => {
       res.render('pages/', {
         data: rows,
-        message: "wrong passwort/username",
-        //data: rows,
+        message: activeUser,
+        warningMessage: "",
       })
       
       });
       console.log("Saved in Data")
-        
       }
     })
+  }
 
  }
 

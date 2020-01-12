@@ -29,6 +29,21 @@ app.get('/', function (req, res) {
   })
 });
 
+app.post('/bild-upload', function (req, res) {
+  console.log('GET1000 /');
+  
+  db.all('SELECT * FROM comments', (err, rows) => {
+    res.render('pages/', {
+      data: rows,
+      message: activeUser,
+      warningMessage: "",
+     
+    });
+    
+  })
+});
+
+
 app.post('/', function (req, res) {
   if (!(req.body.loginname == null)){
  let sql = `SELECT * FROM user WHERE username1 = "${req.body.loginname}" AND password1 = "${req.body.password}"`;
@@ -55,7 +70,7 @@ app.post('/', function (req, res) {
     }
   })
   if (x === 1) {
-    console.log("POST LOGIN")
+    console.log("successfull login")
 
     db.all('SELECT * FROM comments', (err, rows) => {
       res.render('pages/', {
@@ -69,6 +84,7 @@ app.post('/', function (req, res) {
   }
   else { 
     activeUser = "wrong passwort/username"
+    console.log("Wrong password")
     db.all('SELECT * FROM comments', (err, rows) => {
       res.render('pages/', {
         data: rows,
@@ -79,11 +95,22 @@ app.post('/', function (req, res) {
       });
 }
  })}
- else {
-
+ else if ( bildinput =! null ){
+  console.log("please go!")
+  db.all('SELECT * FROM comments', (err, rows) => {
+    res.render('pages/', {
+      data: rows,
+      message: activeUser,
+      warningMessage: "",
+     
+    });
+    
+  })
+}
+ else if ( !(req.body.kommentar == null)){
   console.log('POST COMMENT');
 
-  if(activeUser == "wrong passwort/username" || activeUser == 'not logged in'){
+  if(activeUser == "wrong passwort/username" || activeUser == 'not logged in' || req.body.kommentar == ""){
   
 
   console.log("Can't Post")
@@ -116,7 +143,10 @@ app.post('/', function (req, res) {
     })
   }
 
+ }else{
+   console.log("keine aktion ausgelöst")
  }
+ 
 
  });
 

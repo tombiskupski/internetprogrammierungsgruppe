@@ -6,7 +6,7 @@
 
 .headerColor{ 
     background-color: #ffffff; 
-    color: #ffffff;
+    color: #000000;
   }
   
 .textColor {
@@ -36,7 +36,6 @@ body {background-color: #ffffff;}
 #space{
   height: 100px;
 }
-
 
 #footer {
   position: fixed;

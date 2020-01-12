@@ -7,6 +7,7 @@ const db = new sqlite3.Database('./datenbank/data.db');
 
 var activeUser = "not logged in";
 var warningMessage = "";
+var datenspeicher = null;
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,28 +20,69 @@ app.get('/', function (req, res) {
   console.log('GET1 /');
   
   db.all('SELECT * FROM comments', (err, rows) => {
-    res.render('pages/', {
-      data: rows,
-      message: activeUser,
-      warningMessage: "",
-     
-    });
+    datenspeicher = rows;
+  }); 
+
+    db.all('SELECT * FROM pictures', (err, rows) => {
+      console.log("read pictures")
+      res.render('pages/', {
+        photo: rows,
+        data: datenspeicher,
+        message: activeUser,
+        warningMessage: "",
+      })
     
-  })
+  });
+
 });
 
-app.post('/bild-upload', function (req, res) {
-  console.log('GET1000 /');
+app.post('/bildupload', function (req, res) {
+  console.log('POST /Bildupload');
+
+  db.all('SELECT * FROM pictures', (err, rows) => {
+    console.log("read pictures")
+    var anzahlBilder = rows.length + 1 ;
+    console.log(anzahlBilder);
+});
+
+  db.run('INSERT INTO pictures(base64) VALUES (?);',
+    [req.body.base64url],
+    (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+
+        db.all('SELECT * FROM comments', (err, rows) => {
+          datenspeicher = rows;
+        }); 
+      
+          db.all('SELECT * FROM pictures', (err, rows) => {
+            console.log("read pictures")
+            res.render('pages/', {
+              photo: rows,
+              data: datenspeicher,
+              message: activeUser,
+              warningMessage: "",
+            })
+          
+        });
+      console.log("Saved in Data")
+      }
+    })
   
+    /*
   db.all('SELECT * FROM comments', (err, rows) => {
-    res.render('pages/', {
-      data: rows,
-      message: activeUser,
-      warningMessage: "",
-     
-    });
-    
+    res.redirect('/');
   })
+  */
+});
+
+
+
+
+app.get('/bildupload', function(req, res) {
+  console.log("GET bildupload")
+  res.render('pages/bildupload');
 });
 
 
@@ -73,40 +115,39 @@ app.post('/', function (req, res) {
     console.log("successfull login")
 
     db.all('SELECT * FROM comments', (err, rows) => {
-      res.render('pages/', {
+      datenspeicher = rows;
+    }); 
+  
+      db.all('SELECT * FROM pictures', (err, rows) => {
+        console.log("read pictures")
+        res.render('pages/', {
+          photo: rows,
+          data: datenspeicher,
+          message: activeUser,
+          warningMessage: "",
+        })
       
-        message: activeUser,
-        data: rows,
-        warningMessage: "",
-      })
-
-      });
+    });
   }
   else { 
     activeUser = "wrong passwort/username"
     console.log("Wrong password")
     db.all('SELECT * FROM comments', (err, rows) => {
-      res.render('pages/', {
-        data: rows,
-        message: activeUser,
-        warningMessage: "",
-      })
+      datenspeicher = rows;
+    }); 
+  
+      db.all('SELECT * FROM pictures', (err, rows) => {
+        console.log("read pictures")
+        res.render('pages/', {
+          photo: rows,
+          data: datenspeicher,
+          message: activeUser,
+          warningMessage: "",
+        })
       
-      });
+    });
 }
  })}
- else if ( bildinput =! null ){
-  console.log("please go!")
-  db.all('SELECT * FROM comments', (err, rows) => {
-    res.render('pages/', {
-      data: rows,
-      message: activeUser,
-      warningMessage: "",
-     
-    });
-    
-  })
-}
  else if ( !(req.body.kommentar == null)){
   console.log('POST COMMENT');
 
@@ -115,12 +156,19 @@ app.post('/', function (req, res) {
 
   console.log("Can't Post")
   db.all('SELECT * FROM comments', (err, rows) => {
-    res.render('pages/', {
-      data: rows,
-      message: activeUser,
-      warningMessage: "Sie müssen sich einloggen um zu posten!",
-    })
-    });
+          datenspeicher = rows;
+        }); 
+      
+          db.all('SELECT * FROM pictures', (err, rows) => {
+            console.log("read pictures")
+            res.render('pages/', {
+              photo: rows,
+              data: datenspeicher,
+              message: activeUser,
+              warningMessage: "",
+            })
+          
+        });
 
   }else{
   db.run('INSERT INTO comments(user, kommentar) VALUES (?, ?);',
@@ -131,13 +179,19 @@ app.post('/', function (req, res) {
         
       } else {
         db.all('SELECT * FROM comments', (err, rows) => {
-      res.render('pages/', {
-        data: rows,
-        message: activeUser,
-        warningMessage: "",
-      })
+          datenspeicher = rows;
+        }); 
       
-      });
+          db.all('SELECT * FROM pictures', (err, rows) => {
+            console.log("read pictures")
+            res.render('pages/', {
+              photo: rows,
+              data: datenspeicher,
+              message: activeUser,
+              warningMessage: "",
+            })
+          
+        });
       console.log("Saved in Data")
       }
     })

@@ -7,11 +7,13 @@
     "body-parser": "^1.19.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
+    "node-pre-gyp": "^0.14.0",
     "sqlite": "^3.0.3",
     "sqlite3": "^4.1.1"
   },
   "scripts": {
     "start": "node index.js",
+    "stop": "node server.stop.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "axel koerner",

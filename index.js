@@ -152,9 +152,8 @@ app.post('/', function (req, res) {
   console.log('POST COMMENT');
 
   if(activeUser == "wrong passwort/username" || activeUser == 'not logged in' || req.body.kommentar == ""){
-  
-
   console.log("Can't Post")
+
   db.all('SELECT * FROM comments', (err, rows) => {
           datenspeicher = rows;
         }); 
@@ -171,8 +170,8 @@ app.post('/', function (req, res) {
         });
 
   }else{
-  db.run('INSERT INTO comments(user, kommentar) VALUES (?, ?);',
-    [activeUser, req.body.kommentar],
+  db.run('INSERT INTO comments(user, kommentar, bildid) VALUES (?, ?, ?);',
+    [activeUser, req.body.kommentar, req.body.bildnummer],
     (err) => {
       if (err) {
         console.log(err);

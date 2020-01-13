@@ -40,19 +40,25 @@
       </div>-->
       <table>
         <tbody>
-          <% photo.forEach(element => {%>
+          <% 
+          var i = 0;
+          photo.forEach(element => {
+            i = element.bildid
+            %>
             <tr>
               <h1><%=element.bildid%></h1>
               <td><img width="200px" src="<%=element.base64%>"></td>
             </tr>
             <table>
               <tbody>
-                <% data.forEach(element => { if (data.bildid === photo.bildid) { %>
+                <% data.forEach(element => {%>
+                  <% if( element.bildid == i){%>
                   <tr>
                     <td class="text-primary"><%=element.user%>:</td>
                     <td class="text-danger"><%=element.kommentar%></td>
                   </tr>
-                  <% } else{} }) %>
+                  <%}%>
+                  <%})%>
               </tbody>
             </table>
             <% }) %>
@@ -74,101 +80,13 @@
       </table>
     -->
 
-        <!--
-        <li class="list-group-item list-group-item-success">first comment</li>
-        <li class="list-group-item list-group-item-info">second comment</li>
-        <li class="list-group-item list-group-item-warning">third comment</li>
-        <li class="list-group-item list-group-item-danger">fourth comment</li>
-      -->
-
      
 
 
-      <div class = "c text-center">   <!--Comment input class-->
-        <div id='form'>
-          <div class="row">
-            <div class="col">
-              <form action="/" method="post" id="commentform">
-                <div id="comments-name" class="form-row">
-                  <input id="kommentar" name="kommentar" type = "text" placeholder = "Enter your Comment">
-                  <!--<input type="submit" value="Post it!">-->
-                <button id="form-submit"  type="submit" class="btn btn-primary">Post It!</button>
-                </div>
-            </div>
-           </div>
-         </div>
-      </div>
+      
     </div>
   </div>
    </div>
-
-  
-  <!-- this is only to test the scrolling of the side and how different post look underneath each other-->
-
-    
-  <div id = "space"> <!--Placeholder class between Elements-->
-  
-  </div>
-
-  <div class="container ">
-    <div class="row ">
-  <div class = "col whiteColor" style = "border: 1px solid #cecece;"> 
-    <div class="col text-center  ">
-      <img src=" https://ih0.redbubble.net/image.531944912.8717/flat,800x800,075,f.u2.jpg" class="img" alt="swag" width="350" height="350">
-    </div>
-    <ul class="list-group">
-      <li class="list-group-item list-group-item-success">first comment</li>
-      <li class="list-group-item list-group-item-info">second comment</li>
-      <li class="list-group-item list-group-item-warning">third comment</li>
-      <li class="list-group-item list-group-item-danger">fourth comment</li>
-    </ul>
-    <div class = "c text-center">
-      <div id='form'>
-        <div class="row">
-          <div class="col">
-            <form action="" method="POST" id="commentform">
-              <div id="comment-name" class="form-row">
-                <input type = "text" placeholder = "Enter your Comment">
-              </div>
-          </div>
-         </div>
-       </div>
-    </div>
-  </div>
-</div>
- </div>
-
- <div id = "space"> <!--Placeholder class between Elements-->
-  
- </div>
-
-<div class="container ">
-  <div class="row ">
-<div class = "col whiteColor" style = "border: 1px solid #cecece;"> 
-  <div class="col text-center  "> 
-    <img src="https://ih1.redbubble.net/image.508126171.3613/st%2Csmall%2C215x235-pad%2C210x230%2Cf8f8f8.lite-1u2.jpg" class="img" alt="swag" width="350" height="350">
-  </div>
-  <ul class="list-group">
-    <li class="list-group-item list-group-item-success">first comment</li>
-    <li class="list-group-item list-group-item-info">second comment</li>
-    <li class="list-group-item list-group-item-warning">third comment</li>
-    <li class="list-group-item list-group-item-danger">fourth comment</li>
-  </ul>
-  <div class = "c text-center">
-    <div id='form'>
-      <div class="row">
-        <div class="col">
-          <form action="" method="POST" id="commentform">
-            <div id="comment-name" class="form-row">
-              <input type = "text" placeholder = "Enter your Comment">
-            </div>
-        </div>
-       </div>
-     </div>
-  </div>
-</div>
-</div>
-</div>
 <div id="space">
 
 </div>
@@ -179,6 +97,21 @@
 <footer id="footer" class="container-fluid text-center" >
   <form action="/" method="post"> 
     <a href="/bildupload" >Click to Upload a Photo!</a>
+    <div class = "c text-center">   <!--Comment input class-->
+      <div id='form'>
+        <div class="row">
+          <div class="col">
+            <form action="/" method="post" id="commentform">
+              <div id="comments-name" class="form-row">
+                <input id="kommentar" name="kommentar" type = "text" placeholder = "Enter your Comment">
+                <input id="bildnummer" name="bildnummer" type = "number" placeholder = "Enter the Bildid">
+                <!--<input type="submit" value="Post it!">-->
+              <button id="form-submit"  type="submit" class="btn btn-primary">Post It!</button>
+              </div>
+          </div>
+         </div>
+       </div>
+    </div>
   </form>
 </footer> 
   

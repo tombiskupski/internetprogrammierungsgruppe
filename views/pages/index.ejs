@@ -42,14 +42,26 @@
         <tbody>
           <% photo.forEach(element => {%>
             <tr>
+              <h1><%=element.bildid%></h1>
               <td><img width="200px" src="<%=element.base64%>"></td>
             </tr>
+            <table>
+              <tbody>
+                <% data.forEach(element => { if (data.bildid === photo.bildid) { %>
+                  <tr>
+                    <td class="text-primary"><%=element.user%>:</td>
+                    <td class="text-danger"><%=element.kommentar%></td>
+                  </tr>
+                  <% } else{} }) %>
+              </tbody>
+            </table>
             <% }) %>
         </tbody>
       </table>
 
 
         <hr>
+        <!--
         <table>
         <tbody>
           <% data.forEach(element => {%>
@@ -60,6 +72,7 @@
             <% }) %>
         </tbody>
       </table>
+    -->
 
         <!--
         <li class="list-group-item list-group-item-success">first comment</li>

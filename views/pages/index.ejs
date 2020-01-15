@@ -27,29 +27,33 @@
       </div>
     </div>
   
-    <div id = "space"> <!--Placeholder class between Elements-->
-  
-    </div>
+    
 
     
     <div class="container ">  <!--container with all Elements of the Instagram Post-->
       <div class="row ">
-    <div class = "col whiteColor" style = "border: 1px solid #cecece;"> 
-      <!--<div class="col text-center "> 
-        <img src="https://www.improgrammer.net/wp-content/uploads/2017/06/kBbPmyS9L7ghV0_Mwoeq5PhVErMmqxXONr0SS9u_Xik.jpg" class="img" alt="swag" width="350" height="350">
-      </div>-->
-      <table>
-        <tbody>
-          <% 
+    <div class = "col headerColor" style = "border: 1px solid #cecece;"> 
+      <div class="col text-center  "> 
+	   <% 
           var i = 0;
           photo.forEach(element => {
             i = element.bildid
             %>
-            <tr>
+        
+      
+		<tr>
               <h1><%=element.bildid%></h1>
-              <td><img width="200px" src="<%=element.base64%>"></td>
+              <td><img  width= " 1000px" src="<%=element.base64%>"></td>
             </tr>
-            <table>
+
+        <hr>
+        
+      <div class = "c text-center">   <!--Comment input class-->
+        <div id='form'>
+          <div class="row">
+            <div class="col">
+              
+				<table>
               <tbody>
                 <% data.forEach(element => {%>
                   <% if( element.bildid == i){%>
@@ -61,39 +65,18 @@
                   <%})%>
               </tbody>
             </table>
+			 <hr>
             <% }) %>
         </tbody>
       </table>
-
-
-        <hr>
-        <!--
-        <table>
-        <tbody>
-          <% data.forEach(element => {%>
-            <tr>
-              <td class="text-primary"><%=element.user%>:</td>
-              <td class="text-danger"><%=element.kommentar%></td>
-            </tr>
-            <% }) %>
-        </tbody>
-      </table>
-    -->
-
-     
-
-
-      
+                </div>
+            </div>
+           </div>
+         </div>
+      </div>
     </div>
-  </div>
-   </div>
-<div id="space">
-
-</div>
-
-
-
-
+ 
+   
 <footer id="footer" class="container-fluid text-center" >
   <form action="/" method="post"> 
     <a href="/bildupload" >Click to Upload a Photo!</a>

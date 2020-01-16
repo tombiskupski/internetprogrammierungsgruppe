@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  
+
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css"   href="/public/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -11,93 +12,119 @@
 </head>
 
 <body method="get">
-  
-    <div class="row text-center headerColor" style="border : 1px solid #cecece ;">  <!--Banner on top of the site-->
-      <div class= "container textColor">
-        <p style="font-size:28px "><h1 method="get" class="headerMessage">Instagram Clone</h1></p>
-        <h2><%= message %></h2>
-        <h3><%= warningMessage %></h3>
-      </div>
-      <div id="loginFormula">
-        <form id="loginfeld"  method="post" action="/">
-          <input name="loginname" type="text"  class="fadeIn second" placeholder="login">
-          <input name="password"  class="fadeIn third" placeholder="password">
-          <input type="submit" class="fadeIn fourth" value="Log In">
-        </form>
-      </div>
-    </div>
-  
-    
 
-    
-    <div class="container ">  <!--container with all Elements of the Instagram Post-->
-      <div class="row ">
-    <div class = "col headerColor" style = "border: 1px solid #cecece;"> 
-      <div class="col text-center  "> 
-	   <% 
+  <div class="row text-center headerColor" style="border : 1px solid #cecece ;">
+    <!--Banner on top of the site-->
+    <div class="container textColor">
+      <p style="font-size:28px ">
+        <h1 method="get" class="headerMessage">Instagram Clone</h1>
+      </p>
+      <h2><%= message %></h2>
+      <h3><%= warningMessage %></h3>
+    </div>
+    <div id="loginFormula">
+      <form id="loginfeld" method="post" action="/">
+        <input name="loginname" type="text" class="fadeIn second" placeholder="login">
+        <input name="password" class="fadeIn third" placeholder="password">
+        <input type="submit" class="fadeIn fourth" value="Log In">
+      </form>
+    </div>
+  </div>
+
+  <div id="space">
+  </div>
+
+ 
+    <div class="container">
+      <!--container with all Elements of the Instagram Post-->
+      <div class="row">
+        <div class="col-sm-12 whiteColor" style="border: 1px solid #cecece;">
+          <div class="col text-center">
+            <% 
           var i = 0;
           photo.forEach(element => {
             i = element.bildid
             %>
-        
-      
-		<tr>
-              <h1><%=element.bildid%></h1>
-              <td><img  width= " 1000px" src="<%=element.base64%>"></td>
-            </tr>
 
-        <hr>
-        
-      <div class = "c text-center">   <!--Comment input class-->
+
+            <h1><%=element.bildid%></h1>
+
+
+            <img class="img-responsive" src=<%=element.base64%>>
+
+
+
+
+
+
+            <div class="container-fluid">
+              <!--Comment input class-->
+              <div id='form'>
+                <div class="row">
+                  <div class="col">
+
+                    <table>
+                      <tbody>
+                        <% data.forEach(element => {%>
+                        <% if( element.bildid == i){%>
+                        <tr>
+                          <td class="text-primary"><%=element.user%>:</td>
+                          <td class="text-danger"><%=element.kommentar%></td>
+                        </tr>
+                        <%}%>
+                  <%})%>
+                      </tbody>
+                    </table>
+                    <hr>
+                    <% }) %>
+                    </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <footer id="footer" class="container-fluid text-center">
+    <form action="/" method="post">
+      <a href="/bildupload">Click to Upload a Photo!</a>
+      <div class="c text-center">
+        <!--Comment input class-->
         <div id='form'>
           <div class="row">
             <div class="col">
-              
-				<table>
-              <tbody>
-                <% data.forEach(element => {%>
-                  <% if( element.bildid == i){%>
-                  <tr>
-                    <td class="text-primary"><%=element.user%>:</td>
-                    <td class="text-danger"><%=element.kommentar%></td>
-                  </tr>
-                  <%}%>
-                  <%})%>
-              </tbody>
-            </table>
-			 <hr>
-            <% }) %>
-        </tbody>
-      </table>
+              <form action="/" method="post" id="commentform">
+                <div id="comments-name" class="form-row">
+                  <input id="kommentar" name="kommentar" type="text" placeholder="Enter your Comment">
+                  <input id="bildnummer" name="bildnummer" type="number" placeholder="Enter the Bildid">
+                  <!--<input type="submit" value="Post it!">-->
+                  <button id="form-submit" type="submit" class="btn btn-primary">Post It!</button>
                 </div>
             </div>
-           </div>
-         </div>
-      </div>
-    </div>
- 
-   
-<footer id="footer" class="container-fluid text-center" >
-  <form action="/" method="post"> 
-    <a href="/bildupload" >Click to Upload a Photo!</a>
-    <div class = "c text-center">   <!--Comment input class-->
-      <div id='form'>
-        <div class="row">
-          <div class="col">
-            <form action="/" method="post" id="commentform">
-              <div id="comments-name" class="form-row">
-                <input id="kommentar" name="kommentar" type = "text" placeholder = "Enter your Comment">
-                <input id="bildnummer" name="bildnummer" type = "number" placeholder = "Enter the Bildid">
-                <!--<input type="submit" value="Post it!">-->
-              <button id="form-submit"  type="submit" class="btn btn-primary">Post It!</button>
-              </div>
           </div>
-         </div>
-       </div>
-    </div>
-  </form>
-</footer> 
-  
-  
-  </body>
-  </html>
+        </div>
+      </div>
+    </form>
+  </footer>
+
+
+</body>
+
+</html>
